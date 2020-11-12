@@ -8,4 +8,7 @@ public class LSA {
         this.value = value;
     }
 
+    public String getValue() {
+        return value;
+    }
 }
