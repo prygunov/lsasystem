@@ -1,6 +1,6 @@
 package net.artux;
 
-import java.io.*;
+
 import net.artux.models.LSA;
 import net.artux.utils.LSAUtil;
 import net.artux.utils.Reader;
