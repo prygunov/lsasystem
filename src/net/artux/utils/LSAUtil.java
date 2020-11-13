@@ -3,6 +3,10 @@ package net.artux.utils;
 import net.artux.exceptions.StackException;
 import net.artux.models.LSA;
 
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class LSAUtil {
 
     static String[] commands;
@@ -54,4 +58,14 @@ public class LSAUtil {
             throw new StackException();
     }
 
+    public static ArrayList<String> readFromFile() throws Exception {
+        FileReader fr = new FileReader("lsa.lcfg");
+        Scanner scan = new Scanner(fr);
+        ArrayList<String> lsa = new ArrayList<>();
+        while (scan.hasNextLine()) {
+            lsa.add(scan.nextLine().trim());
+        }
+        fr.close();
+        return lsa;
+    }
 }

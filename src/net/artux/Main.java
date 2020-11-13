@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
         Reader reader = new Reader() {
             @Override
             public byte next() {
@@ -17,6 +17,7 @@ public class Main {
             }
         };
 
-        LSAUtil.compileLSA(new LSA("Yn 1< X1 >1 Y1 2< Y2 X2 >2 Y4 X3 >3 Y3 3< Yk"), reader);
+//        LSAUtil.compileLSA(new LSA("Yn 1< X1 >1 Y1 2< Y2 X2 >2 Y4 X3 >3 Y3 3< Yk"), reader);
+        LSAUtil.readFromFile();
     }
 }
