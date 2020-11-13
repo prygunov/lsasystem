@@ -10,8 +10,6 @@ import java.util.Scanner;
 
 public class Main {
 
-    static byte input[];
-
     public static void menu()
     {
         Scanner scanner = new Scanner(System.in);;
@@ -62,19 +60,28 @@ public class Main {
         System.out.println("2. Ввод значений всех логических условий");
         System.out.println("3. Полный перебор всех значений");
         Scanner scanner = new Scanner(System.in);
+        Reader reader = null;
         switch (scanner.nextInt()){
             case 1:
-                Reader reader = new Reader() {
+                reader = new Reader() {
                     @Override
                     public byte next() {
                         Scanner scanner = new Scanner(System.in);
                         return scanner.nextByte();
                     }
                 };
-                LSAUtil.compileLSA(lsa, reader);
                 break;
             case 2:
-
+                reader = new Reader() {
+                    byte[] bytes = getInput();
+                    int i = -1;
+                    @Override
+                    public byte next() {
+                        i++;
+                        if (i < bytes.length)
+                            return bytes[i];
+                    }
+                };
                 break;
             case 3:
 
@@ -83,9 +90,17 @@ public class Main {
                 System.out.println("Некорректный ввод");
                 startLSA(lsa);
         }
+        if (reader != null)
+            LSAUtil.compileLSA(lsa, reader);
     }
 
-//    public byte[] getInput(Reader reader) {
-//
-//    }
+    public static byte[] getInput() {
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
+        byte[] bytes = new byte[input.length()];
+        for (int i = 0; i < input.length(); i++) {
+            bytes[i] = Byte.parseByte(String.valueOf(input.charAt(i)));
+        }
+        return bytes;
+    }
 }
