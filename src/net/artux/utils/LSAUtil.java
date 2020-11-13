@@ -68,4 +68,12 @@ public class LSAUtil {
         fr.close();
         return lsa;
     }
+    public static String read()
+    {
+        System.out.print("Вводимое ЛСА: ".replaceAll("[\\s]{2,}", " "));
+        Scanner scanner = new Scanner(System.in);
+        String lsa = scanner.nextLine();
+        lsa = lsa.trim();
+        return lsa;
+    }
 }
