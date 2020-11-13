@@ -18,11 +18,10 @@ public class Main {
             System.out.println("---------------МЕНЮ---------------");
             System.out.println("1: Ввести ЛСА с клавиатуры");
             System.out.println("2: Считать ЛСА из текстового файла");
-            System.out.println("3: Вывести ЛСА");
-            System.out.println("4: Выход");
+            System.out.println("3: Выход");
             switch (scanner.nextInt()) {
                 case 1:
-
+                    startLSA(LSAUtil.read());
                     break;
                 case 2:
                     try {
@@ -37,9 +36,6 @@ public class Main {
                     }
                     break;
                 case 3:
-
-                    break;
-                case 4:
                     exit = true;
                     break;
                 default:
@@ -69,6 +65,11 @@ public class Main {
                         Scanner scanner = new Scanner(System.in);
                         return scanner.nextByte();
                     }
+
+                    @Override
+                    public boolean isOver() {
+                        return false;
+                    }
                 };
                 break;
             case 2:
@@ -78,8 +79,12 @@ public class Main {
                     @Override
                     public byte next() {
                         i++;
-                        if (i < bytes.length)
-                            return bytes[i];
+                        return bytes[i];
+                    }
+
+                    @Override
+                    public boolean isOver() {
+                        return i + 1 < bytes.length;
                     }
                 };
                 break;

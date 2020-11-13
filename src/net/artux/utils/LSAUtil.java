@@ -34,11 +34,10 @@ public class LSAUtil {
         }
         for (; i < commands.length; i++)
             if (commands[i].toLowerCase().contains("x")) {
-                if (reader.next() == 0)
-                    if (commands[i + 1].contains(">")) {
-                        goTo(commands[i + 1].charAt(1), reader);
-                        break;
-                    }
+                if (!reader.isOver() && reader.next() == 0 && commands[i + 1].contains(">")){
+                    goTo(commands[i + 1].charAt(1), reader);
+                }
+                break;
             } else if (commands[i].toLowerCase().contains("w")) {
                 if (commands[i + 1].contains(">")) {
                     goTo(commands[i + 1].charAt(1), reader);
@@ -69,6 +68,7 @@ public class LSAUtil {
         fr.close();
         return lsa;
     }
+    
     public static LSA read()
     {
         System.out.print("Вводимое ЛСА: ".replaceAll("[\\s]{2,}", " "));
