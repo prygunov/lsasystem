@@ -1,6 +1,5 @@
 package net.artux;
 
-
 import net.artux.models.LSA;
 import net.artux.utils.LSAUtil;
 import net.artux.utils.Reader;
@@ -10,9 +9,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void menu()
-    {
-        Scanner scanner = new Scanner(System.in);;
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         boolean exit = false;
         while(!exit) {
             System.out.println("---------------МЕНЮ---------------");
@@ -43,10 +41,6 @@ public class Main {
                     break;
             }
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        menu();
     }
 
     public static void startLSA(LSA lsa){
@@ -84,12 +78,13 @@ public class Main {
 
                     @Override
                     public boolean isOver() {
-                        return i + 1 < bytes.length;
+                        return i + 1 >= bytes.length;
                     }
                 };
                 break;
             case 3:
-
+                System.out.println("Какая глубина перебора?");
+                startBrute(lsa, scanner.nextInt());
                 break;
             default:
                 System.out.println("Некорректный ввод");
@@ -101,11 +96,43 @@ public class Main {
 
     public static byte[] getInput() {
         Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
+        return getBytes(scan.nextLine());
+    }
+
+    public static void startBrute(LSA lsa, int depth){
+        start(lsa, "", depth);
+    }
+
+    public static void start(LSA lsa, String input, int depth){
+        if (!input.equals("")){
+            Reader reader = new Reader() {
+                byte[] bytes = getBytes(input);
+                int i = -1;
+                @Override
+                public byte next() {
+                    i++;
+                    return bytes[i];
+                }
+                @Override
+                public boolean isOver() {
+                    return i + 1 >= bytes.length; }
+            };
+            System.out.print(input + " : ");
+            LSAUtil.compileLSA(lsa, reader);
+        }
+
+        if (input.length()<depth) {
+            start(lsa,input + "0", depth);
+            start(lsa,input + "1", depth);
+        }
+    }
+
+    public static byte[] getBytes(String input) {
         byte[] bytes = new byte[input.length()];
         for (int i = 0; i < input.length(); i++) {
             bytes[i] = Byte.parseByte(String.valueOf(input.charAt(i)));
         }
         return bytes;
     }
+
 }
