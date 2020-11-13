@@ -5,11 +5,12 @@ import net.artux.models.LSA;
 import net.artux.utils.LSAUtil;
 import net.artux.utils.Reader;
 
-
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    static byte input[];
 
     public static void menu()
     {
@@ -50,7 +51,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args)throws Exception{
+    public static void main(String[] args) throws Exception {
         menu();
     }
 
@@ -83,4 +84,8 @@ public class Main {
                 startLSA(lsa);
         }
     }
+
+//    public byte[] getInput(Reader reader) {
+//
+//    }
 }
