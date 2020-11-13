@@ -35,7 +35,7 @@ public class Main {
                         for (int i = 0; i<list.size(); i++)
                             System.out.println((i + 1) + " : " + list.get(i).getValue());
                         System.out.println("Какую моделировать?");
-                        startLSA(list.get(scanner.nextInt()));
+                        startLSA(list.get(scanner.nextInt()-1));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
