@@ -6,13 +6,12 @@ import net.artux.utils.LSAUtil;
 import net.artux.utils.Reader;
 
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-
-
-    public void Menu()
+    public static void menu()
     {
         Scanner scanner = new Scanner(System.in);;
         boolean exit = false;
@@ -30,7 +29,16 @@ public class Main {
 
                     break;
                 case 3:
-                    
+                    try {
+                        List<LSA> list = LSAUtil.readFromFile();
+                        System.out.println("Полученные LSA:");
+                        for (int i = 0; i<list.size(); i++)
+                            System.out.println((i + 1) + " : " + list.get(i).getValue());
+                        System.out.println("Какую моделировать?");
+                        startLSA(list.get(scanner.nextInt()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 4:
                     exit = true;
@@ -43,14 +51,36 @@ public class Main {
     }
 
     public static void main(String[] args)throws Exception{
-        Reader reader = new Reader() {
-            @Override
-            public byte next() {
-                Scanner scanner = new Scanner(System.in);
-                return scanner.nextByte();
-            }
-        };
+        menu();
+    }
 
-        LSAUtil.compileLSA(new LSA("Yn 1< X1 >1 Y1 2< Y2 X2 >2 Y4 X3 >3 Y3 3< Yk"), reader);
+    public static void startLSA(LSA lsa){
+        System.out.println("Какой режим работы?");
+
+        System.out.println("1. Последовательный ввод значений");
+        System.out.println("2. Ввод значений всех логических условий");
+        System.out.println("3. Полный перебор всех значений");
+        Scanner scanner = new Scanner(System.in);
+        switch (scanner.nextInt()){
+            case 1:
+                Reader reader = new Reader() {
+                    @Override
+                    public byte next() {
+                        Scanner scanner = new Scanner(System.in);
+                        return scanner.nextByte();
+                    }
+                };
+                LSAUtil.compileLSA(lsa, reader);
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            default:
+                System.out.println("Некорректный ввод");
+                startLSA(lsa);
+        }
     }
 }
