@@ -16,6 +16,7 @@ public class LSAUtil {
         commands = v.split(" ");
         stackCount = 0;
         goTo('n', reader);
+        System.out.println();
     }
 
     static int stackCount;

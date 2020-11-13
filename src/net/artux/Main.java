@@ -26,9 +26,6 @@ public class Main {
 
                     break;
                 case 2:
-
-                    break;
-                case 3:
                     try {
                         List<LSA> list = LSAUtil.readFromFile();
                         System.out.println("Полученные LSA:");
@@ -39,6 +36,9 @@ public class Main {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
+                case 3:
+
                     break;
                 case 4:
                     exit = true;
