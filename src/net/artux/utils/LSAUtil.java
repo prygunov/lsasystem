@@ -58,12 +58,12 @@ public class LSAUtil {
             throw new StackException();
     }
 
-    public static ArrayList<String> readFromFile() throws Exception {
+    public static ArrayList<LSA> readFromFile() throws Exception {
         FileReader fr = new FileReader("lsa.lcfg");
         Scanner scan = new Scanner(fr);
-        ArrayList<String> lsa = new ArrayList<>();
+        ArrayList<LSA> lsa = new ArrayList<>();
         while (scan.hasNextLine()) {
-            lsa.add(scan.nextLine().trim());
+            lsa.add(new LSA(scan.nextLine().trim()));
         }
         fr.close();
         return lsa;
