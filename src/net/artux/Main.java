@@ -55,9 +55,22 @@ public class Main {
             case 1:
                 reader = new Reader() {
                     @Override
-                    public byte next() {
-                        Scanner scanner = new Scanner(System.in);
-                        return scanner.nextByte();
+                    public byte next(String x) {
+                        System.out.println();
+                        byte b = 0;
+                        boolean validInput = false;
+                        while (!validInput) {
+                            try {
+                                System.out.print("Запрос " + x + ":");
+                                Scanner scanner = new Scanner(System.in);
+                                b = scanner.nextByte();
+                                validInput = true;
+                            }
+                            catch (Exception e) {
+                                System.out.println("Некорректный ввод.");
+                            }
+                        }
+                        return b;
                     }
 
                     @Override
@@ -71,7 +84,7 @@ public class Main {
                     byte[] bytes = getInput();
                     int i = -1;
                     @Override
-                    public byte next() {
+                    public byte next(String x) {
                         i++;
                         return bytes[i];
                     }
@@ -95,8 +108,19 @@ public class Main {
     }
 
     public static byte[] getInput() {
-        Scanner scan = new Scanner(System.in);
-        return getBytes(scan.nextLine());
+        byte[] b = {};
+        boolean validInput = false;
+        while (!validInput) {
+            try {
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Введите все занчения без пробелов:");
+                b = getBytes(scanner.nextLine());
+                validInput = true;
+            } catch (Exception e) {
+                System.out.println("Некорректный ввод.");
+            }
+        }
+        return b;
     }
 
     public static void startBrute(LSA lsa, int depth){
@@ -109,7 +133,7 @@ public class Main {
                 byte[] bytes = getBytes(input);
                 int i = -1;
                 @Override
-                public byte next() {
+                public byte next(String x) {
                     i++;
                     return bytes[i];
                 }
